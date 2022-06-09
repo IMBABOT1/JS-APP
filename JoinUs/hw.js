@@ -7,6 +7,8 @@ var express = require('express');
 var app = express();
 var mysqll = require('mysql');
 
+app.set("view engine", "ejs");
+
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -21,14 +23,14 @@ app.get("/", function(req, res){
     connection.query(q, function(err, results){
         if (err) throw err;
         var count = results[0].count;
-        res.send("We have " + count + " users in our db")
+      //  res.send("We have " + count + " users in our db")
+        res.render("home", {data: count});
     });
     // res.send("You've Reached The Home Page!")
 });
 
 app.get("/joke", function(req, res){
-        res.send("!!!")
-        console.log("answer from server");
+    res.render("home");
 });
 
 app.get("/random", function(req, res){
